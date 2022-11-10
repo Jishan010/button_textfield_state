@@ -34,6 +34,7 @@ class _MyHomePage extends State<MyHomePage> {
   final myController = TextEditingController();
 
   var isError = false;
+  var isEnable = true;
 
   @override
   void dispose() {
@@ -93,8 +94,10 @@ class _MyHomePage extends State<MyHomePage> {
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               child: TextFormField(
+                enabled: isEnable,
                 style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
+                  filled: true,
                   focusedBorder: OutlineInputBorder(
                     borderSide:
                         const BorderSide(color: Colors.deepPurple, width: 1.0),
@@ -119,6 +122,7 @@ class _MyHomePage extends State<MyHomePage> {
               onPressed: myController.text.isEmpty
                   ? null
                   : () {
+                      isEnable = false;
                       FocusScope.of(context).unfocus();
                     },
               child: const Text('Print Text'),
