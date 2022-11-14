@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// A stateful widget to display a Text Form Field.
+/// TextFormFieldWidget - A stateful widget to display a Text Form Field.
 /// @param [labelText] The text to display on the label.
 /// @param [hintText] The text to display on the hint.
 /// @param [errorText] The boolean to display the error message.

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// A stateful widget to display a button.
+/// ButtonWidget - A stateful widget to display a button.
 /// @param [buttonText] The text to display on the button.
 /// @param [onTapEvent] The callback to be called when the button is pressed.
 /// @param [isEnable] The boolean to enable or disable the button.
