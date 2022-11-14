@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'common/common_textformfield.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -93,28 +95,11 @@ class _MyHomePage extends State<MyHomePage> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
-              child: TextFormField(
-                enabled: isEnable,
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.deepPurple, width: 1.0),
-                  ),
-                  errorText: isError ? 'Please enter a valid text' : null,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.green),
-                  ),
-                  hintText: 'Enter a search term',
-                ),
-                controller: myController,
-                onChanged: (text) {
-                  setState(() {
-                    isError = text == 'Error';
-                  });
-                },
+              child: CommonTextFormField(
+                isPassword: false,
+                hintText: 'Enter your name',
+                textController: myController,
+                onTextChanged: (text) {},
               ),
             ),
             ElevatedButton(
