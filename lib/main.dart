@@ -1,4 +1,5 @@
 import 'package:button_textfield_state/common/button_widget.dart';
+import 'package:button_textfield_state/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'common/textformfield_widget.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashScreen(),
     );
   }
 }
