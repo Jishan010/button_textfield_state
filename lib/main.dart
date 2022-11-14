@@ -1,3 +1,4 @@
+import 'package:button_textfield_state/common/button_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'common/textformfield_widget.dart';
@@ -45,45 +46,8 @@ class _MyHomePage extends State<MyHomePage> {
     super.dispose();
   }
 
-  Color getForegroundColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-    };
-    if (states.contains(MaterialState.disabled)) {
-      return Colors.white;
-    } else if (states.any(interactiveStates.contains)) {
-      return Colors.white;
-    } else {
-      return Colors.white;
-    }
-  }
-
-  Color getBackgroundColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-    };
-    if (states.contains(MaterialState.disabled)) {
-      return const Color(0xff97999B);
-    } else if (states.any(interactiveStates.contains)) {
-      return const Color(0xff004364);
-    } else {
-      return const Color(0xff005C8A);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final forgroundColor =
-        MaterialStateProperty.resolveWith<Color>(getForegroundColor);
-
-    final backgroundColor =
-        MaterialStateProperty.resolveWith<Color>(getBackgroundColor);
-
-    final buttonStyle = ButtonStyle(
-      backgroundColor: backgroundColor,
-      foregroundColor: forgroundColor,
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -115,16 +79,22 @@ class _MyHomePage extends State<MyHomePage> {
                 },
               ),
             ),
-            ElevatedButton(
-              style: buttonStyle,
-              onPressed: myController.text.isEmpty
-                  ? null
-                  : () {
-                      isEnable = false;
-                      FocusScope.of(context).unfocus();
-                    },
-              child: const Text('Print Text'),
-            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              child: ButtonWidget(
+                  onTapEvent: () {
+                    //show snack bar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Processing Data'),
+                      ),
+                    );
+                    FocusScope.of(context).unfocus();
+                  },
+                  buttonText: 'Submit',
+                  isEnable: myController.text.isEmpty ? false : true),
+            )
           ],
         ),
       ),
