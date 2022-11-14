@@ -99,7 +99,20 @@ class _MyHomePage extends State<MyHomePage> {
                 isPassword: false,
                 hintText: 'Enter your name',
                 textController: myController,
-                onTextChanged: (text) {},
+                isEnable: false,
+                labelText: 'Enter your name',
+                errorText: isError ? "Please enter your name" : "",
+                onTextChanged: (text) {
+                  if (text.isEmpty) {
+                    setState(() {
+                      isError = true;
+                    });
+                  } else {
+                    setState(() {
+                      isError = false;
+                    });
+                  }
+                },
               ),
             ),
             ElevatedButton(

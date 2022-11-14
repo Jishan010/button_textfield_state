@@ -1,20 +1,20 @@
-//implement commmom textformfield
 import 'package:flutter/material.dart';
 
 class CommonTextFormField extends StatefulWidget {
-  const CommonTextFormField(
+  CommonTextFormField(
       {super.key,
       this.labelText = '',
       this.helperText = '',
       this.isEnable = true,
       this.errorText = '',
+      this.isFilled = false,
       required this.onTextChanged,
       this.titleTextAlign = TextAlign.center,
       required this.isPassword,
       required this.hintText,
       required this.textController});
 
-  final String labelText;
+  String labelText;
   final String helperText;
   final TextAlign titleTextAlign;
   final bool isPassword;
@@ -23,29 +23,75 @@ class CommonTextFormField extends StatefulWidget {
   final ValueChanged<String> onTextChanged;
   final TextEditingController textController;
   final bool isEnable;
+  final bool isFilled;
 
   @override
-  _CommonTextFormFieldState createState() => _CommonTextFormFieldState();
+  CommonTextFormFieldState createState() => CommonTextFormFieldState();
 }
 
-class _CommonTextFormFieldState extends State<CommonTextFormField> {
+class CommonTextFormFieldState extends State<CommonTextFormField> {
+  final FocusNode _focus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focus.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _focus.removeListener(_onFocusChange);
+    _focus.dispose();
+  }
+
+  void _onFocusChange() {
+    debugPrint("Focus: ${_focus.hasFocus.toString()}");
+    if (_focus.hasFocus) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: widget.isEnable,
       obscureText: widget.isPassword,
+      focusNode: _focus,
       decoration: InputDecoration(
-        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        filled: !widget.isEnable,
+        fillColor: Color(0xffEEEEEE),
         errorText: widget.errorText == '' ? null : widget.errorText,
         contentPadding: const EdgeInsets.all(10.0),
         hintText: widget.hintText,
-        // pass the hint text parameter here
         hintStyle: const TextStyle(color: Colors.black26),
         labelText: widget.labelText,
+        labelStyle: const TextStyle(color: Color(0xffBBBCBC)),
         helperText: widget.helperText,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffBBBCBC)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xff005C8A)),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffB3261E)),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffB3261E)),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffEEEEEE)),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.green),
+          borderSide: const BorderSide(color: Color(0xffBBBCBC)),
         ),
       ),
       controller: widget.textController,
@@ -56,3 +102,5 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
     );
   }
 }
+
+enum InputState { normal, active, filled, disabled, readOnly, error }
