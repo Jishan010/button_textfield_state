@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// A stateful widget to display a Text Form Field.
+/// @param [labelText] The text to display on the label.
+/// @param [hintText] The text to display on the hint.
+/// @param [errorText] The boolean to display the error message.
+/// @param [isEnable] The boolean to enable or disable the text field.
+/// @param [textController] The controller to handle the text field's value.
+/// @param [onTextChanged] The callback to be called when the text field's value is changed.
+/// @param [isPassword] The boolean to display the text field as password field.
+/// @param [keyboardType] The keyboard type to display on the text field.
 class TextFormFieldWidget extends StatefulWidget {
   const TextFormFieldWidget(
       {super.key,
@@ -8,6 +17,7 @@ class TextFormFieldWidget extends StatefulWidget {
       this.isEnable = true,
       this.errorText = '',
       required this.onTextChanged,
+      this.keyboardType = TextInputType.text,
       this.titleTextAlign = TextAlign.center,
       required this.isPassword,
       required this.hintText,
@@ -22,6 +32,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final ValueChanged<String> onTextChanged;
   final TextEditingController textController;
   final bool isEnable;
+  final TextInputType keyboardType;
 
   @override
   TextFormFieldWidgetState createState() => TextFormFieldWidgetState();
@@ -63,6 +74,7 @@ class TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                   fontWeight: FontWeight.w500)),
         ),
         TextFormField(
+          keyboardType: widget.keyboardType,
           enabled: widget.isEnable,
           obscureText: widget.isPassword,
           focusNode: _focus,
