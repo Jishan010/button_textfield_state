@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'common/common_textformfield.dart';
+import 'common/textformfield_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -95,11 +95,11 @@ class _MyHomePage extends State<MyHomePage> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
-              child: CommonTextFormField(
+              child: TextFormFieldWidget(
                 isPassword: false,
                 hintText: 'Enter your name',
                 textController: myController,
-                isEnable: false,
+                isEnable: true,
                 labelText: 'Enter your name',
                 errorText: isError ? "Please enter your name" : "",
                 onTextChanged: (text) {
